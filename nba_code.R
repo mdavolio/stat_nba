@@ -31,3 +31,4 @@ colnames(all_nba_2) <- c('Year','del','Team','First','Last','Pos')
 drops <- ('del')
 all_nba_2 <- all_nba_2[,!(names(all_nba_2) %in% drops)]
 
+# Cut off prior to 1988-89 (first year of 3rd team)
