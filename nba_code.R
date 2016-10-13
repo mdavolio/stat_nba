@@ -1,6 +1,7 @@
 # Stat Final Project
 
 library(readr)
+library(stringr)
 
 all_nba <- read_csv('all_pro.csv')
 
@@ -17,3 +18,9 @@ for(i in 1:nrow(all_nba)){
   }
 }
 
+all_nba_2[,4:6] <- as.data.frame(str_split_fixed(all_nba_2$V4, " ", 3))
+
+colnames(all_nba_2) <- c('Year','del','Team','First','Last','Pos')
+
+drops <- ('del')
+all_nba_2 <- all_nba_2[,!(names(all_nba_2) %in% drops)]
