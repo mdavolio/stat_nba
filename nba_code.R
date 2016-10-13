@@ -16,3 +16,4 @@ for(i in 1:nrow(all_nba)){
     count = count + 1
   }
 }
+
