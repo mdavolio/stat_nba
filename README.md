@@ -7,6 +7,10 @@ Analysis Plan?:
 1) Predict which all nba team on (if any)?
 2) Predict if voted as an all star (coach voted vs fan voted)?
 3) Predict placement in award voting?
+	How to we want to quantify this? 
+	a) Logistic to if won or not
+	b) Linear(?) for number of votes
+	c) Linear(?) for share of votes
 
 Data to Collect:
 1) response variables to above questions
@@ -17,3 +21,4 @@ Data to Collect:
 3) advanced season long ind. statistics
 4) Salary data
 5) twitter follower data
+6) draft position
