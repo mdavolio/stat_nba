@@ -1,5 +1,8 @@
 # stat_nba
 
+
+Year start 1988-89 (first year of 3rd all-nba team)
+
 Analysis Plan?:
 1) Predict which all nba team on (if any)?
 2) Predict if voted as an all star (coach voted vs fan voted)?
