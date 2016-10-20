@@ -34,6 +34,7 @@ all_nba_2 <- all_nba_2[,!(names(all_nba_2) %in% drops)]
 # Change year to just season end year/Fix types
 all_nba_2$Year <- substr(all_nba_2$Year, 0, 4)
 all_nba_2$Year <- as.numeric(all_nba_2$Year) + 1
+all_nba_2[] <- lapply(all_nba_2, as.character)
 
 # Cut off prior to 1988-89 (first year of 3rd team)
 all_nba_final <- subset(all_nba_2, Year > 1988)
@@ -41,4 +42,5 @@ all_nba_final <- subset(all_nba_2, Year > 1988)
 # Clean one column error of name
 all_nba_final[193, 'Last'] <- 'World Peace'
 all_nba_final[193, 'Pos'] <- 'F'
+
 # Take into acount previous year results??
