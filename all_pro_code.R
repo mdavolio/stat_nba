@@ -1,4 +1,5 @@
 # Stat Final Project
+# All Pro data
 
 library(readr)
 library(stringr)
@@ -21,7 +22,6 @@ for(i in 1:nrow(all_nba)){
 }
 
 # split names and pos into individual columns
-# Still need to clean names that appear in position column
 all_nba_2[,4:6] <- as.data.frame(str_split_fixed(all_nba_2$V4, " ", 3))
 
 # Rename columns
@@ -42,5 +42,10 @@ all_nba_final <- subset(all_nba_2, Year > 1988)
 # Clean one column error of name
 all_nba_final[193, 'Last'] <- 'World Peace'
 all_nba_final[193, 'Pos'] <- 'F'
+
+# Combined player name into one
+all_nba_final$Name <- paste(all_nba_final$First, all_nba_final$Last)
+drops <- c('First','Last')
+all_nba_final <- all_nba_final[,!(names(all_nba_final) %in% drops)]
 
 # Take into acount previous year results??
