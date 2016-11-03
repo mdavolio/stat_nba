@@ -13,7 +13,7 @@ oldnames <- c('Rk','Player','Twitter', NA)
 newnames <- c('Rank','Name','Handle','Followers')
 setnames(followers, oldnames, newnames)
 
-# remove empty columns
+# remove unused columns
 unused <- c('Rank','Handle')
 followers <- followers[,!(names(followers) %in% unused)]
 
