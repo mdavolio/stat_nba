@@ -8,4 +8,8 @@ library(data.table)
 # import csv file
 followers <- read_csv('nba-followers.csv')
 
+# rename columns
+oldnames <- c('Rk','Player','Twitter', NA)
+newnames <- c('Rank','Name','Handle','Followers')
+setnames(followers, oldnames, newnames)
 
