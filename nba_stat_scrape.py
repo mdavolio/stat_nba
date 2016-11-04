@@ -73,4 +73,4 @@ advance_player_stats['player'] = advance_player_stats['player'].map(lambda x:x.s
 #Merge
 CurrentStats=pd.merge(basic_player_stats,advance_player_stats,how = "left", on = ['player', 'season_end'])
 
-
+CurrentStats.to_csv('All_player_data.csv')
