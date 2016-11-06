@@ -37,10 +37,11 @@ for i in range(1,int(len(test_list)/3)+1):
     draft_list['Name'][i] = Name
     draft_list['College'][i] = College
 
- 
+
 draft_list['Pick'] = draft_list['Team'].str.split(".").str[1]
 draft_list['Pick'] = draft_list['Pick'].str.lstrip('0')
 draft_list['Team'] = draft_list['Team'].str.split(".").str[0]
+draft_list = draft_list[['Name','Pick','Team','College']]
 print(draft_list)
 
 
