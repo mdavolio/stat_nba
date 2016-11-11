@@ -69,7 +69,11 @@ for year in years:
     stats = AdvanceStats(year)
     advance_player_stats = advance_player_stats.append(stats)
 
+
+basic_player_stats['player'] = basic_player_stats['player'].map(lambda x:x.strip('*'))
 advance_player_stats['player'] = advance_player_stats['player'].map(lambda x:x.strip('*'))
+
+
 #Merge
 CurrentStats=pd.merge(basic_player_stats,advance_player_stats,how = "left", on = ['player', 'season_end'])
 
