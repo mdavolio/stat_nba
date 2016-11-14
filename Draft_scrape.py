@@ -47,7 +47,6 @@ for year in years:
 nba_draftees = df.dropna(how='all')
 
     
-
 #r = requests.get('http://www.basketball-reference.com/draft/NBA_2015.html')
 #b = BeautifulSoup(r.text, "html.parser")
 #test = b.find_all('td', class_ = 'left ')
@@ -70,17 +69,19 @@ nba_draftees = df.dropna(how='all')
 #    draft_list['Team'][i] = team
 #    draft_list['Name'][i] = Name
 #    draft_list['College'][i] = College
-# 
-#draft_list['Pick'] = draft_list['Team'].str.split(".").str[1]
-#draft_list['Pick'] = draft_list['Pick'].str.lstrip('0')
-#draft_list['Team'] = draft_list['Team'].str.split(".").str[0]
-#
-#
+
+
+
+
+draft_list['Pick'] = draft_list['Team'].str.split(".").str[1]
+draft_list['Pick'] = draft_list['Pick'].str.lstrip('0')
+draft_list['Team'] = draft_list['Team'].str.split(".").str[0]
+draft_list = draft_list[['Name','Pick','Team','College']]
+print(draft_list)
+
 #print(draft_list)
 
 #remove comma, switch names, index pick number, put in function 
-
-
 
 
 
