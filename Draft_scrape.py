@@ -37,7 +37,7 @@ def draftGrab(year):
     return draft_list
 
 
-years = range(1989,2016)
+years = range(1976,2016)
 df = pd.DataFrame()
 
 for year in years:
