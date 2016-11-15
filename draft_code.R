@@ -15,3 +15,8 @@ draft[,6:7] <- as.data.frame(str_split_fixed(draft$Name, ",", 2))
 draft$Name <- paste(draft$V2, draft$V1)
 drops <- c('V1','V2')
 draft <- draft[,!(names(draft) %in% drops)]
+
+# If no college change 'Zzz' to 'None'
+# Some are international, some are High School
+# Differentiate manually??
+draft$College[draft$College == 'Zzz'] <- 'None'
