@@ -63,7 +63,7 @@ def AdvanceStats(year):
     return df
 #AdvanceStats(2015)        
 
-years = range(1989,2016)
+years = range(1989,2017)
 advance_player_stats = pd.DataFrame()
 for year in years:
     stats = AdvanceStats(year)
