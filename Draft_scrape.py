@@ -41,8 +41,8 @@ years = range(1976,2016)
 df = pd.DataFrame()
 
 for year in years:
-    Draft_list = draftGrab(year)
-    df = df.append(Draft_list)
+    draft_list = draftGrab(year)
+    df = df.append(draft_list)
 #Remove missing values 
 nba_draftees = df.dropna(how='all')
 
@@ -74,11 +74,11 @@ nba_draftees.to_csv("nbaDraftList.csv")
 
 
 
-draft_list['Pick'] = draft_list['Team'].str.split(".").str[1]
-draft_list['Pick'] = draft_list['Pick'].str.lstrip('0')
-draft_list['Team'] = draft_list['Team'].str.split(".").str[0]
-draft_list = draft_list[['Name','Pick','Team','College']]
-print(draft_list)
+#draft_list['Pick'] = draft_list['Team'].str.split(".").str[1]
+#draft_list['Pick'] = draft_list['Pick'].str.lstrip('0')
+#draft_list['Team'] = draft_list['Team'].str.split(".").str[0]
+#draft_list = draft_list[['Name','Pick','Team','College']]
+#print(draft_list)
 
 #print(draft_list)
 
