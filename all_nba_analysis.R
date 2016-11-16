@@ -1,11 +1,8 @@
 # Stat Final Project
 # All-NBA Merging and Analysis
 
-all_nba_analysis_1 <- merge(all_nba_final, draft, by = 'Name')
-all_nba_analysis_2 <- merge(all_nba_analysis_1, box_scores, by = c('Name','Year'))
-
-all_nba_analysis_3 <- merge(all_nba_final, box_scores, by = 'Name')
-
+all_nba_analysis_1 <- merge(all_nba_final, box_scores, by = c('Name','Year'))
+all_nba_analysis_2 <- merge(all_nba_analysis_1, draft, by = 'Name')
 
 # remove double columns
 doubles <- c('Pos.x','Team.x')
