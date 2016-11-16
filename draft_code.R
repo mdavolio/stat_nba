@@ -8,7 +8,7 @@ library(stringr)
 draft <- as.data.frame(read_csv('nbaDraftList.csv'))
 
 # Rename columns
-colnames(draft) <- c('Draft_Pos','Team','Name','College','Year')
+colnames(draft) <- c('Draft_Pos','Team','Name','College','Draft_Year')
 
 # reconfigure name column
 draft[,6:7] <- as.data.frame(str_split_fixed(draft$Name, ",", 2))
