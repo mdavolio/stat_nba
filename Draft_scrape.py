@@ -46,6 +46,7 @@ for year in years:
 #Remove missing values 
 nba_draftees = df.dropna(how='all')
 
+nba_draftees.to_csv("nbaDraftList.csv")
     
 #r = requests.get('http://www.basketball-reference.com/draft/NBA_2015.html')
 #b = BeautifulSoup(r.text, "html.parser")
