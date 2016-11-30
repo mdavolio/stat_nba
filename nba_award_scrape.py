@@ -19,15 +19,15 @@ def draftGrab(year):
 
 
 	print("mvp")
-	getWinners("all_mvp", b)
+	mvp = getWinners("all_mvp", b)
 
 	print("dpoy")
-	getWinners("all_dpoy", b)
+	dpoy = getWinners("all_dpoy", b)
 
 	print("smoy")
-	getWinners("all_smoy", b)
+	smoy = getWinners("all_smoy", b)
 
-	draft_list = 1
+	draft_list = (mvp, dpoy, smoy)
 	return draft_list
 
 
@@ -35,16 +35,9 @@ def getWinners(table_name, soup_obj):
 	b = soup_obj
 	test = b.find_all('div', {"id":table_name} )
 
-	x = test[0].find_all(class_ = 'left')
-
-	name = []
-
-	for i in range(1,int(len(x)/2)+1):
-		player = x[(i-1)*2].get('csk')
-		name.append(player)
-
 	x = test[0].find_all('td', {"class":"left"})
 
+	name = []
 	award_shares = []
 
 	for i in range(1,int(len(x)/2)+1):
@@ -59,19 +52,28 @@ def getWinners(table_name, soup_obj):
 	print(name)
 	print(award_shares)
 
+	return (name, award_shares)
 
 
 
-draftGrab(2014)
-# years = range(1989,2016)
-# df = pd.DataFrame()
 
-# for year in years:
-#     print(year)
-#     Draft_list = draftGrab(year)
-#     df = df.append(Draft_list)
+years = range(1989,2016)
+mvp_df = pd.DataFrame()
+dpoy_df = pd.DataFrame()
+smoy_df = pd.DataFrame()
 
-# print(df)
+
+for year in years:
+    print(year)
+    (mvp, dpoy, smoy) = draftGrab(year)
+    mvp_df = mvp_df.append(pd.DataFrame(list(mvp)))
+    dpoy_df = dpoy_df.append(pd.DataFrame(list(dpoy)))
+    smoy_df = smoy_df.append(pd.DataFrame(list(smoy)))
+
+mvp_df.to_csv('mvp.csv')
+dpoy_df.to_csv('dpoy.csv')
+smoy_df.to_csv('smoy.csv')
+
 # Remove missing values 
 # nba_draftees = df.dropna(how='all')
 
