@@ -15,7 +15,7 @@ smoy <- smoy[,-1]
 
 # rename columns
 oldnames <- c('year', 'player', 'first')
-newnames <- c('Year','Name','First Place Votes')
+newnames <- c('Year','Name','First_Place_Votes')
 setnames(mvp, oldnames, newnames)
 setnames(dpoy, oldnames, newnames)
 setnames(smoy, oldnames, newnames)
