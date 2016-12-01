@@ -18,13 +18,13 @@ def draftGrab(year):
 	b.prettify
 
 
-	print("mvp")
+	# print("mvp")
 	mvp = getWinners("all_mvp", b)
 
-	print("dpoy")
+	# print("dpoy")
 	dpoy = getWinners("all_dpoy", b)
 
-	print("smoy")
+	# print("smoy")
 	smoy = getWinners("all_smoy", b)
 
 	draft_list = (mvp, dpoy, smoy)
@@ -82,25 +82,25 @@ def getWinners(table_name, soup_obj):
 
 
 
-years = range(2014,2016)
+years = range(1989,2016)
 mvp_df = pd.DataFrame()
 dpoy_df = pd.DataFrame()
 smoy_df = pd.DataFrame()
 
 
 for year in years:
-    #print(year)
+    print(year)
     (mvp, dpoy, smoy) = draftGrab(year)
     # print(mvp)
     mvp_df = pd.concat([mvp_df,mvp],axis=0)
     dpoy_df = pd.concat([dpoy_df, dpoy], axis=0)
     smoy_df = pd.concat([smoy_df, smoy], axis=0)
 
-print(mvp_df)
+# print(mvp_df)
 
-#mvp_df.to_csv('mvp.csv')
-# dpoy_df.to_csv('dpoy.csv')
-# smoy_df.to_csv('smoy.csv')
+mvp_df.to_csv('mvp.csv')
+dpoy_df.to_csv('dpoy.csv')
+smoy_df.to_csv('smoy.csv')
 
 # Remove missing values 
 # nba_draftees = df.dropna(how='all')
