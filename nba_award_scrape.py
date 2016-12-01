@@ -30,6 +30,9 @@ def draftGrab(year):
 	draft_list = (mvp, dpoy, smoy)
 	return draft_list
 
+# mvp_attr = ['player','share']
+
+# mvp_temp = pd.DataFrame(columns=mvp_attr)
 
 def getWinners(table_name, soup_obj):
 	b = soup_obj
@@ -40,6 +43,12 @@ def getWinners(table_name, soup_obj):
 	name = []
 	award_shares = []
 
+	mvp_attr = ['player','share']
+
+	mvp_temp = pd.DataFrame(columns=mvp_attr)
+	
+	mvp_internal_temp = pd.DataFrame(columns=mvp_attr)
+
 	for i in range(1,int(len(x)/2)+1):
 		player = x[(i-1)*2].get('csk')
 		name.append(player)	
@@ -49,15 +58,24 @@ def getWinners(table_name, soup_obj):
 	for i in range(len(results)):
 		award_shares.append(results[i].text)	
 
-	print(name)
-	print(award_shares)
+	# print(name)
+	# print(award_shares)
 
-	return (name, award_shares)
+	name_array = np.array(name)
+	share_array = np.array(award_shares)
+
+	mvp_temp['player'] = name_array
+	mvp_temp['share'] = share_array
+
+	# mvp_temp = pd.concat([mvp_temp, mvp_internal_temp], axis = 1)
+	print(mvp_temp)
+
+	return (mvp_temp)
 
 
 
 
-years = range(1989,2016)
+years = range(2014,2016)
 mvp_df = pd.DataFrame()
 dpoy_df = pd.DataFrame()
 smoy_df = pd.DataFrame()
@@ -65,14 +83,18 @@ smoy_df = pd.DataFrame()
 
 for year in years:
     print(year)
+    #(mvp, dpoy, smoy) = draftGrab(year)
     (mvp, dpoy, smoy) = draftGrab(year)
-    mvp_df = mvp_df.append(pd.DataFrame(list(mvp)))
-    dpoy_df = dpoy_df.append(pd.DataFrame(list(dpoy)))
-    smoy_df = smoy_df.append(pd.DataFrame(list(smoy)))
+    # print(mvp)
+    mvp_df = pd.concat([mvp_df,mvp],axis=0)
+    dpoy_df = dpoy_df.append(dpoy)
+    smoy_df = smoy_df.append(smoy)
+
+print(mvp_df)
 
 mvp_df.to_csv('mvp.csv')
-dpoy_df.to_csv('dpoy.csv')
-smoy_df.to_csv('smoy.csv')
+# dpoy_df.to_csv('dpoy.csv')
+# smoy_df.to_csv('smoy.csv')
 
 # Remove missing values 
 # nba_draftees = df.dropna(how='all')
