@@ -38,8 +38,9 @@ def getWinners(table_name, soup_obj):
 
 	name = []
 	award_shares = []
+	points_won = []
 
-	attr = ['player','share'] # needs more attributes
+	attr = ['player','share', 'pts won'] # needs more attributes
 
 	temp = pd.DataFrame(columns=attr)
 
@@ -47,22 +48,28 @@ def getWinners(table_name, soup_obj):
 		player = x[(i-1)*2].get('csk')
 		name.append(player)	
 
-	results = test[0].find_all("td", {"data-stat" : "award_share"}) # need more attributes
-	# print(results)
-	for i in range(len(results)):
-		award_shares.append(results[i].text)	
+	share = test[0].find_all("td", {"data-stat" : "award_share"}) # need more attributes
+	pts_won = test[0].find_all('td', {'data-stat': 'points_won'})
+	for i in range(len(share)):
+		award_shares.append(share[i].text)
+		points_won.append(pts_won[i].text)
+
+	
+
 
 	# print(name)
 	# print(award_shares)
 
 	name_array = np.array(name)
 	share_array = np.array(award_shares)
+	pts_won_array = np.array(points_won)
 
 	temp['player'] = name_array
 	temp['share'] = share_array
+	temp['pts won'] = pts_won_array
 
 	# mvp_temp = pd.concat([mvp_temp, mvp_internal_temp], axis = 1)
-	print(temp)
+	# print(temp)
 
 	return (temp)
 
@@ -76,7 +83,7 @@ smoy_df = pd.DataFrame()
 
 
 for year in years:
-    print(year)
+    #print(year)
     (mvp, dpoy, smoy) = draftGrab(year)
     # print(mvp)
     mvp_df = pd.concat([mvp_df,mvp],axis=0)
@@ -85,7 +92,7 @@ for year in years:
 
 print(mvp_df)
 
-mvp_df.to_csv('mvp.csv')
+#mvp_df.to_csv('mvp.csv')
 # dpoy_df.to_csv('dpoy.csv')
 # smoy_df.to_csv('smoy.csv')
 
