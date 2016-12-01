@@ -39,8 +39,9 @@ def getWinners(table_name, soup_obj):
 	name = []
 	award_shares = []
 	points_won = []
+	first = []
 
-	attr = ['year','player','share', 'pts won'] # needs more attributes
+	attr = ['year','player','first','share', 'pts won'] # needs more attributes
 
 	temp = pd.DataFrame(columns=attr)
 
@@ -50,9 +51,11 @@ def getWinners(table_name, soup_obj):
 
 	share = test[0].find_all("td", {"data-stat" : "award_share"}) # need more attributes
 	pts_won = test[0].find_all('td', {'data-stat': 'points_won'})
+	first_votes = test[0].find_all('td', {'data-stat':'votes_first'})
 	for i in range(len(share)):
 		award_shares.append(share[i].text)
 		points_won.append(pts_won[i].text)
+		first.append(first_votes[i].text)
 
 	
 
@@ -63,11 +66,13 @@ def getWinners(table_name, soup_obj):
 	name_array = np.array(name)
 	share_array = np.array(award_shares)
 	pts_won_array = np.array(points_won)
+	first_array = np.array(first)
 
 	temp['player'] = name_array
 	temp['share'] = share_array
 	temp['pts won'] = pts_won_array
 	temp['year'] = year
+	temp['first'] = first_array
 
 	# mvp_temp = pd.concat([mvp_temp, mvp_internal_temp], axis = 1)
 	# print(temp)
