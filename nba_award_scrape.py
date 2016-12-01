@@ -43,17 +43,17 @@ def getWinners(table_name, soup_obj):
 	name = []
 	award_shares = []
 
-	mvp_attr = ['player','share']
+	mvp_attr = ['player','share'] # needs more attributes
 
 	mvp_temp = pd.DataFrame(columns=mvp_attr)
 	
-	mvp_internal_temp = pd.DataFrame(columns=mvp_attr)
+	mvp_internal_temp = pd.DataFrame(columns=mvp_attr) # dont need anymore??
 
 	for i in range(1,int(len(x)/2)+1):
 		player = x[(i-1)*2].get('csk')
 		name.append(player)	
 
-	results = test[0].find_all("td", {"data-stat" : "award_share"})
+	results = test[0].find_all("td", {"data-stat" : "award_share"}) # need more attributes
 	# print(results)
 	for i in range(len(results)):
 		award_shares.append(results[i].text)	
@@ -87,8 +87,8 @@ for year in years:
     (mvp, dpoy, smoy) = draftGrab(year)
     # print(mvp)
     mvp_df = pd.concat([mvp_df,mvp],axis=0)
-    dpoy_df = dpoy_df.append(dpoy)
-    smoy_df = smoy_df.append(smoy)
+    dpoy_df = dpoy_df.append(dpoy) # needs to be changed to concat
+    smoy_df = smoy_df.append(smoy) # needs to be changed to concat
 
 print(mvp_df)
 
