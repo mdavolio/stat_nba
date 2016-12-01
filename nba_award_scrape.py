@@ -30,10 +30,6 @@ def draftGrab(year):
 	draft_list = (mvp, dpoy, smoy)
 	return draft_list
 
-# mvp_attr = ['player','share']
-
-# mvp_temp = pd.DataFrame(columns=mvp_attr)
-
 def getWinners(table_name, soup_obj):
 	b = soup_obj
 	test = b.find_all('div', {"id":table_name} )
@@ -43,11 +39,9 @@ def getWinners(table_name, soup_obj):
 	name = []
 	award_shares = []
 
-	mvp_attr = ['player','share'] # needs more attributes
+	attr = ['player','share'] # needs more attributes
 
-	mvp_temp = pd.DataFrame(columns=mvp_attr)
-	
-	mvp_internal_temp = pd.DataFrame(columns=mvp_attr) # dont need anymore??
+	temp = pd.DataFrame(columns=attr)
 
 	for i in range(1,int(len(x)/2)+1):
 		player = x[(i-1)*2].get('csk')
@@ -64,13 +58,13 @@ def getWinners(table_name, soup_obj):
 	name_array = np.array(name)
 	share_array = np.array(award_shares)
 
-	mvp_temp['player'] = name_array
-	mvp_temp['share'] = share_array
+	temp['player'] = name_array
+	temp['share'] = share_array
 
 	# mvp_temp = pd.concat([mvp_temp, mvp_internal_temp], axis = 1)
-	print(mvp_temp)
+	print(temp)
 
-	return (mvp_temp)
+	return (temp)
 
 
 
@@ -83,12 +77,11 @@ smoy_df = pd.DataFrame()
 
 for year in years:
     print(year)
-    #(mvp, dpoy, smoy) = draftGrab(year)
     (mvp, dpoy, smoy) = draftGrab(year)
     # print(mvp)
     mvp_df = pd.concat([mvp_df,mvp],axis=0)
-    dpoy_df = dpoy_df.append(dpoy) # needs to be changed to concat
-    smoy_df = smoy_df.append(smoy) # needs to be changed to concat
+    dpoy_df = pd.concat([dpoy_df, dpoy], axis=0)
+    smoy_df = pd.concat([smoy_df, smoy], axis=0)
 
 print(mvp_df)
 
