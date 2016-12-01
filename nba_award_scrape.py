@@ -40,7 +40,7 @@ def getWinners(table_name, soup_obj):
 	award_shares = []
 	points_won = []
 
-	attr = ['player','share', 'pts won'] # needs more attributes
+	attr = ['year','player','share', 'pts won'] # needs more attributes
 
 	temp = pd.DataFrame(columns=attr)
 
@@ -67,6 +67,7 @@ def getWinners(table_name, soup_obj):
 	temp['player'] = name_array
 	temp['share'] = share_array
 	temp['pts won'] = pts_won_array
+	temp['year'] = year
 
 	# mvp_temp = pd.concat([mvp_temp, mvp_internal_temp], axis = 1)
 	# print(temp)
