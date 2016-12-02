@@ -45,12 +45,10 @@ x$Pos<-as.factor(x$Pos)
 x$All_NBA_Team<-as.factor(x$All_NBA_Team)
 x$Draft_Pos<-as.factor(x$Draft_Pos)
 
-
-
 mvp$Pos<-as.factor(mvp$Pos)
-mvp$All_NBA_Team<-as.factor(x$All_NBA_Team)
-mvp$Draft_Pos<-as.factor(x$Draft_Pos)
+mvp$Draft_Pos<-as.factor(mvp$Draft_Pos)
 
+# All_NBA Analysis
 length(x$Draft_Year[x$Draft_Year== 1994])
 
 
@@ -65,6 +63,24 @@ is.na(x)
 mulnom.mod <- train(All_NBA_Team ~ . - Draft_Year,
                     data = x,
                     method = 'multinom',
+                    trControl = timeControl,
+                    tuneLength=tuneLength.num,
+                    na.action=na.exclude)
+
+# MVP Analysis
+
+length(mvp$Draft_Year[mvp$Draft_Year == 1994])
+
+timeControl <- trainControl(method = "timeslice",
+                            initialWindow =  length(mvp$Draft_Year[mvp$Draft_Year == 1994]), 
+                            horizon = 350,
+                            fixedWindow = FALSE)
+tuneLength.num <- 4
+
+is.na(mvp)
+mvp.mulnom.mod <- train(share ~ . - Draft_Year,
+                    data = mvp,
+                    method = 'lm',
                     trControl = timeControl,
                     tuneLength=tuneLength.num,
                     na.action=na.exclude)
