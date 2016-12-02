@@ -22,7 +22,7 @@ def draftGrab(year):
     for est in test:
         test_list.append(est)
     for i in range(1,int(len(test_list)/3)+1):
-        team = test_list[(i-1)*3].get('csk')
+        Team = test_list[(i-1)*3].get('csk')
         Name = test_list[(i-1)*3+1].get('csk')
         College = test_list[(i-1)*3+2].get('csk')
         draft_list['Team'][i] = team
