@@ -12,30 +12,44 @@ registerDoParallel(cores = 2)
 
 
 x<-all_nba_analysis[c(-1,-2,-4,-51,-52)]
-#Recode positions into factors
+mvp<-mvp_analysis[c(-1,-2,-3,-5,-8,-55,-56)]
+
+#Recode positions into factors - all_nba
 unique(x$Pos)
 
-x$Pos[x$Pos == "PF"]<-4
-x$Pos[x$Pos == "PF-C"]<-4
-x$Pos[x$Pos == "PF-SF"]<-4
-x$Pos[x$Pos == "C"]<-5
-x$Pos[x$Pos == "C-PF"]<-5
-x$Pos[x$Pos == "C-SF"]<-5
-x$Pos[x$Pos == "SF-SG"]<-3
-x$Pos[x$Pos == "SF-PF"]<-3
-x$Pos[x$Pos == "SF"]<-3
-x$Pos[x$Pos == "SG"]<-2
-x$Pos[x$Pos == "SG-PF"]<-2
-x$Pos[x$Pos == "SG-SF"]<-2
-x$Pos[x$Pos == "SG-PG"]<-2
-x$Pos[x$Pos == "G-F"]<-2
-x$Pos[x$Pos == "PG"]<-1
-x$Pos[x$Pos == "PG-SG"]<-1
-x$Pos[x$Pos == "PG-SF"]<-1
+pos_fact <- function(table){
+  table$Pos[table$Pos == "PF"]<-4
+  table$Pos[table$Pos == "PF-C"]<-4
+  table$Pos[table$Pos == "PF-SF"]<-4
+  table$Pos[table$Pos == "C"]<-5
+  table$Pos[table$Pos == "C-PF"]<-5
+  table$Pos[table$Pos == "C-SF"]<-5
+  table$Pos[table$Pos == "SF-SG"]<-3
+  table$Pos[table$Pos == "SF-PF"]<-3
+  table$Pos[table$Pos == "SF"]<-3
+  table$Pos[table$Pos == "SG"]<-2
+  table$Pos[table$Pos == "SG-PF"]<-2
+  table$Pos[table$Pos == "SG-SF"]<-2
+  table$Pos[table$Pos == "SG-PG"]<-2
+  table$Pos[table$Pos == "G-F"]<-2
+  table$Pos[table$Pos == "PG"]<-1
+  table$Pos[table$Pos == "PG-SG"]<-1
+  table$Pos[table$Pos == "PG-SF"]<-1
+  return(table)
+}
+
+x <- pos_fact(x)
+mvp <- pos_fact(mvp)
 
 x$Pos<-as.factor(x$Pos)
 x$All_NBA_Team<-as.factor(x$All_NBA_Team)
 x$Draft_Pos<-as.factor(x$Draft_Pos)
+
+
+
+mvp$Pos<-as.factor(mvp$Pos)
+mvp$All_NBA_Team<-as.factor(x$All_NBA_Team)
+mvp$Draft_Pos<-as.factor(x$Draft_Pos)
 
 length(x$Draft_Year[x$Draft_Year== 1994])
 
