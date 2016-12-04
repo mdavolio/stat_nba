@@ -3,6 +3,9 @@
 
 draft_box <- merge(box_scores, draft, by = c('Name'), all.x = T)
 
+# Change undrafted players draft_pos from NA to 61
+draft_box$Draft_Pos[is.na(draft_box$Draft_Pos)] <- 61
+
 # MVP
 mvp_analysis <- merge(mvp_final, draft_box, by = c('Name','Year'), all.y = T)
 mvp_analysis$First_Place_Votes[is.na(mvp_analysis$First_Place_Votes)] <- 0
@@ -21,3 +24,4 @@ smoy_analysis$First_Place_Votes[is.na(smoy_analysis$First_Place_Votes)] <- 0
 smoy_analysis$share[is.na(smoy_analysis$share)] <- 0
 smoy_analysis$`pts won`[is.na(smoy_analysis$`pts won`)] <- 0
 
+smoy_analysis <- subset(smoy_analysis, (GS / G) < .5) # eligibility requirement
