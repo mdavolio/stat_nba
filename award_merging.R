@@ -1,7 +1,7 @@
 # Stat Final Project
 # Award Merging
 
-draft_box <- merge(box_scores, draft, by = c('Name'))
+draft_box <- merge(box_scores, draft, by = c('Name'), all.x = T)
 
 # MVP
 mvp_analysis <- merge(mvp_final, draft_box, by = c('Name','Year'), all.y = T)

@@ -1,7 +1,7 @@
 # Stat Final Project
 # All-NBA Merging and Analysis
 
-draft_box <- merge(box_scores, draft, by = c('Name'))
+draft_box <- merge(box_scores, draft, by = c('Name'), all.x = T)
 all_nba_analysis <- merge(draft_box, all_nba_final, by = c('Name','Year'), all.x=T)
 
 # remove double columns
