@@ -1,5 +1,5 @@
 # Stat Final Project
-# Box Scores data
+# Box Scores data cleaning
 
 library(readr)
 library(stringr)
