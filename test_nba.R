@@ -15,6 +15,7 @@ registerDoParallel(cores = 2)
 x<-all_nba_analysis[c(-1,-2,-4,-51,-52)]
 mvp<-mvp_analysis[c(-1,-3,-5,-8,-55,-56)]
 dpoy <- dpoy_analysis[c(-1,-3,-5,-8,-56,-55)]
+smoy <- smoy_analysis[c(-1,-3,-5,-7,-56,-55)]
 
 #Recode positions into factors - all_nba
 unique(x$Pos)
@@ -43,6 +44,7 @@ pos_fact <- function(table){
 x <- pos_fact(x)
 mvp <- pos_fact(mvp)
 dpoy <- pos_fact(dpoy)
+smoy <- pos_fact(smoy)
 
 x$Pos<-as.factor(x$Pos)
 x$All_NBA_Team<-as.factor(x$All_NBA_Team)
@@ -54,6 +56,9 @@ mvp$Year<-as.factor(mvp$Year)
 
 dpoy$Pos <- as.factor(dpoy$Pos)
 dpoy$Draft_Pos <- as.factor(dpoy$Draft_Pos)
+
+smoy$Pos <- as.factor(smoy$Pos)
+smoy$Year <- as.factor(smoy$Year)
 
 # All_NBA Analysis
 length(x$Draft_Year[x$Draft_Year== 1994])
@@ -92,6 +97,18 @@ mvp.lm.mod <- train(share ~ . - Draft_Year - Year,
                     tuneLength=tuneLength.num,
                     na.action=na.exclude)
 
+# Subsetted model for mvp??
+
+mvp.lm.mod_2 <- train(share ~ GS + MP + `eFG%` + FTA + TOV + PER + `TS%` + 
+                      VORP,
+                    data = mvp,
+                    method = 'lm',
+                    trControl = timeControl,
+                    tuneLength=tuneLength.num,
+                    na.action=na.exclude)
+
+
+
 # dpoy Analysis
 
 length(dpoy$Year[dpoy$Year == 1994])
@@ -109,3 +126,21 @@ dpoy.lm.mod <- train(share ~ . -Year -Draft_Year ,
                         trControl = timeControl,
                         tuneLength=tuneLength.num,
                         na.action=na.exclude)
+
+# smoy Analysis
+
+length(smoy$Year[smoy$Year == 1994])
+
+timeControl <- trainControl(method = "timeslice",
+                            initialWindow =  length(smoy$Year[smoy$Year == 1994]), 
+                            horizon = 350,
+                            fixedWindow = FALSE)
+tuneLength.num <- 4
+
+is.na(smoy)
+smoy.lm.mod <- train(share ~ . -Year -Draft_Year ,
+                     data = smoy,
+                     method = 'lm',
+                     trControl = timeControl,
+                     tuneLength=tuneLength.num,
+                     na.action=na.exclude)
