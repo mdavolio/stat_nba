@@ -5,6 +5,7 @@ library(lubridate)
 library(doParallel)
 library(caret)
 install.packages('e1071', dependencies=TRUE)
+library(e1071)
 
 registerDoParallel(cores = 2)
 
@@ -12,7 +13,8 @@ registerDoParallel(cores = 2)
 
 
 x<-all_nba_analysis[c(-1,-2,-4,-51,-52)]
-mvp<-mvp_analysis[c(-1,-2,-3,-5,-8,-55,-56)]
+mvp<-mvp_analysis[c(-1,-3,-5,-8,-55,-56)]
+dpoy <- dpoy_analysis[c(-1,-3,-5,-8,-56,-55)]
 
 #Recode positions into factors - all_nba
 unique(x$Pos)
@@ -40,6 +42,7 @@ pos_fact <- function(table){
 
 x <- pos_fact(x)
 mvp <- pos_fact(mvp)
+dpoy <- pos_fact(dpoy)
 
 x$Pos<-as.factor(x$Pos)
 x$All_NBA_Team<-as.factor(x$All_NBA_Team)
@@ -47,6 +50,10 @@ x$Draft_Pos<-as.factor(x$Draft_Pos)
 
 mvp$Pos<-as.factor(mvp$Pos)
 mvp$Draft_Pos<-as.factor(mvp$Draft_Pos)
+mvp$Year<-as.factor(mvp$Year)
+
+dpoy$Pos <- as.factor(dpoy$Pos)
+dpoy$Draft_Pos <- as.factor(dpoy$Draft_Pos)
 
 # All_NBA Analysis
 length(x$Draft_Year[x$Draft_Year== 1994])
@@ -69,18 +76,36 @@ mulnom.mod <- train(All_NBA_Team ~ . - Draft_Year,
 
 # MVP Analysis
 
-length(mvp$Draft_Year[mvp$Draft_Year == 1994])
+length(mvp$Year[mvp$Year == 1994])
 
 timeControl <- trainControl(method = "timeslice",
-                            initialWindow =  length(mvp$Draft_Year[mvp$Draft_Year == 1994]), 
+                            initialWindow =  length(mvp$Year[mvp$Year == 1994]), 
                             horizon = 350,
                             fixedWindow = FALSE)
 tuneLength.num <- 4
 
 is.na(mvp)
-mvp.mulnom.mod <- train(share ~ . - Draft_Year,
+mvp.lm.mod <- train(share ~ . - Draft_Year - Year,
                     data = mvp,
                     method = 'lm',
                     trControl = timeControl,
                     tuneLength=tuneLength.num,
                     na.action=na.exclude)
+
+# dpoy Analysis
+
+length(dpoy$Year[dpoy$Year == 1994])
+
+timeControl <- trainControl(method = "timeslice",
+                            initialWindow =  length(dpoy$Year[dpoy$Year == 1994]), 
+                            horizon = 350,
+                            fixedWindow = FALSE)
+tuneLength.num <- 4
+
+is.na(dpoy)
+dpoy.lm.mod <- train(share ~ . -Year -Draft_Year ,
+                        data = dpoy,
+                        method = 'lm',
+                        trControl = timeControl,
+                        tuneLength=tuneLength.num,
+                        na.action=na.exclude)
