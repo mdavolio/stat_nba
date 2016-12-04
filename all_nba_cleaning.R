@@ -7,6 +7,7 @@ library(stringr)
 # import csv file
 all_nba <- read_csv('all_pro.csv')
 
+# empty data frame
 all_nba_2 <- data.frame()
 count = 1
 
@@ -47,5 +48,3 @@ all_nba_final[193, 'Pos'] <- 'F'
 all_nba_final$Name <- paste(all_nba_final$First, all_nba_final$Last)
 drops <- c('First','Last')
 all_nba_final <- all_nba_final[,!(names(all_nba_final) %in% drops)]
-
-# Take into acount previous year results??
