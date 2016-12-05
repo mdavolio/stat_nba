@@ -6,7 +6,8 @@ library(stringr)
 library(data.table)
 
 # import csv file
-box_scores <- read_csv('All_player_data.csv')
+# box_scores <- read_csv('All_player_data.csv')
+box_scores <- read_csv('All_player_data_2016.csv')
 
 # remove duplicate columns
 duplicates <- c('Age_y','Tm_y','G_y','MP_y','Pos_y')
