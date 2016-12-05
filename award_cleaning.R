@@ -2,11 +2,16 @@
 # Cleaning award data
 
 library(readr)
+library(data.table)
 
 # import csv's
-mvp <- read_csv('mvp.csv')
-dpoy <- read_csv('dpoy.csv')
-smoy <- read_csv('smoy.csv')
+# mvp <- read_csv('mvp.csv')
+# dpoy <- read_csv('dpoy.csv')
+# smoy <- read_csv('smoy.csv')
+
+mvp <- read_csv('mvp_2016.csv')
+dpoy <- read_csv('dpoy_2016.csv')
+smoy <- read_csv('smoy_2016.csv')
 
 # remove index column
 mvp <- mvp[,-1]
