@@ -214,7 +214,7 @@ smoy.glm.mod <- train(share ~ .,
                       method = 'glmnet',
                       trControl = cvControl,
                       na.action=na.exclude)
-# MSE = 0.00502579, R^2 = .21234, alpha = .10
+# MSE = 0.0502579, R^2 = .21234, alpha = .10
 
 # Lasso
 smoy.lasso.mod <- train(share ~ .,
