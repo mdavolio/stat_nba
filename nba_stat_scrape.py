@@ -39,7 +39,7 @@ def BasicStats(year):
         df.loc[len(df)] = players_bas_list
     return df
 
-years = range(1989,2016)
+years = range(2016,2017)
 basic_player_stats = pd.DataFrame()
 for year in years:
     stats = BasicStats(year)
@@ -63,7 +63,7 @@ def AdvanceStats(year):
     return df
 #AdvanceStats(2015)        
 
-years = range(1989,2017)
+years = range(2016,2017)
 advance_player_stats = pd.DataFrame()
 for year in years:
     stats = AdvanceStats(year)
@@ -77,4 +77,4 @@ advance_player_stats['player'] = advance_player_stats['player'].map(lambda x:x.s
 #Merge
 CurrentStats=pd.merge(basic_player_stats,advance_player_stats,how = "left", on = ['player', 'season_end'])
 
-CurrentStats.to_csv('All_player_data.csv')
+CurrentStats.to_csv('All_player_data_2016.csv')

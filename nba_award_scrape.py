@@ -82,7 +82,7 @@ def getWinners(table_name, soup_obj):
 
 
 
-years = range(1989,2016)
+years = range(2016,2017)
 mvp_df = pd.DataFrame()
 dpoy_df = pd.DataFrame()
 smoy_df = pd.DataFrame()
@@ -98,9 +98,9 @@ for year in years:
 
 # print(mvp_df)
 
-mvp_df.to_csv('mvp.csv')
-dpoy_df.to_csv('dpoy.csv')
-smoy_df.to_csv('smoy.csv')
+mvp_df.to_csv('mvp_2016.csv')
+dpoy_df.to_csv('dpoy_2016.csv')
+smoy_df.to_csv('smoy_2016.csv')
 
 # Remove missing values 
 # nba_draftees = df.dropna(how='all')
