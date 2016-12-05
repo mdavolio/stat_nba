@@ -134,6 +134,15 @@ mvp.ridge.mod <- train(share ~ .,
                        na.action=na.exclude)
 # MSE = .0536845, R^2 = .29719
 
+# MVP Only those receiving votes
+mvp_2 <- subset(mvp, share > 0)
+mvp_2.lm.mod <- train(share ~ .,
+                          data = mvp_2,
+                          method = 'lm',
+                          trControl = cvControl,
+                          na.action=na.exclude)
+# MSE = 0.1820564, R^2 = 0.5225591
+
 # DPOY Analysis
 # Stepwise selection
 dpoy.stepwise.mod <- train(share ~ .,
