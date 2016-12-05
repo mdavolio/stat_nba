@@ -13,8 +13,8 @@ registerDoParallel(cores = 2)
 
 x<-all_nba_analysis[c(-1,-2,-4,-51,-52)]
 mvp<-mvp_analysis[c(-1,-2,-3,-5,-8,-55,-56, -57)]
-dpoy <- dpoy_analysis[c(-1,-3,-5,-8,-56,-55)]
-smoy <- smoy_analysis[c(-1,-3,-5,-7,-56,-55)]
+dpoy <- dpoy_analysis[c(-1,-2,-3,-5,-8,-56,-55,-57)]
+smoy <- smoy_analysis[c(-1,-2,-3,-5,-8,-56,-55,-57)]
 
 #Recode positions into factors - all_nba
 unique(mvp$Pos)
@@ -53,11 +53,11 @@ x$Draft_Pos<-as.factor(x$Draft_Pos)
 mvp$Pos<-as.factor(mvp$Pos)
 mvp$Draft_Pos<-as.numeric(mvp$Draft_Pos)
 
-dpoy$Pos <- as.numeric(dpoy$Pos)
+dpoy$Pos <- as.factor(dpoy$Pos)
 dpoy$Draft_Pos <- as.numeric(dpoy$Draft_Pos)
 
-smoy$Pos <- as.numeric(smoy$Pos)
-smoy$Year <- as.numeric(smoy$Year)
+smoy$Pos <- as.factor(smoy$Pos)
+smoy$Draft_Pos <- as.numeric(smoy$Draft_Pos)
 
 # All_NBA Analysis
 length(x$Draft_Year[x$Draft_Year== 1994])
@@ -81,7 +81,6 @@ mulnom.mod <- train(All_NBA_Team ~ . - Draft_Year,
 
 
 # All 10-fold cross validation, repeated 10 times
-
 cvControl <- trainControl(method = "repeatedCV",
                             repeats = 10,
                             number = 10)
@@ -133,4 +132,102 @@ mvp.ridge.mod <- train(share ~ .,
                        method = 'ridge',
                        trControl = cvControl,
                        na.action=na.exclude)
+# MSE = .0536845, R^2 = .29719
+
+# DPOY Analysis
+# Stepwise selection
+dpoy.stepwise.mod <- train(share ~ .,
+                          data = dpoy,
+                          method = 'leapSeq',
+                          trControl = cvControl,
+                          na.action=na.exclude)
+# MSE = 0.05499, R^2 = 0.25663
+
+# backward selection
+dpoy.backselect.mod <- train(share ~ .,
+                            data = dpoy,
+                            method = 'leapBackward',
+                            trControl = cvControl,
+                            na.action=na.exclude)
+# MSE = 0.05543, R^2 = 0.24827
+
+# Linear Model
+dpoy.lm.mod <- train(share ~ .,
+                    data = dpoy,
+                    method = 'lm',
+                    trControl = cvControl,
+                    na.action=na.exclude)
+# MSE = 0.05345, R^2 = 0.29961
+
+# GLM
+dpoy.glm.mod <- train(share ~ .,
+                     data = dpoy,
+                     method = 'glmnet',
+                     trControl = cvControl,
+                     na.action=na.exclude)
+# MSE = 0.05371, R^2 = .2963, alpha = .10
+
+# Lasso
+dpoy.lasso.mod <- train(share ~ .,
+                       data = dpoy,
+                       method = 'lasso',
+                       trControl = cvControl,
+                       na.action=na.exclude)
+# MSE = .05349, R^2 = .2966
+
+# Ridge
+dpoy.ridge.mod <- train(share ~ .,
+                       data = dpoy,
+                       method = 'ridge',
+                       trControl = cvControl,
+                       na.action=na.exclude)
+# MSE = .0536845, R^2 = .29719
+
+# SMOY Analysis
+# Stepwise selection
+smoy.stepwise.mod <- train(share ~ .,
+                           data = smoy,
+                           method = 'leapSeq',
+                           trControl = cvControl,
+                           na.action=na.exclude)
+# MSE = 0.05499, R^2 = 0.25663
+
+# backward selection
+smoy.backselect.mod <- train(share ~ .,
+                             data = smoy,
+                             method = 'leapBackward',
+                             trControl = cvControl,
+                             na.action=na.exclude)
+# MSE = 0.05543, R^2 = 0.24827
+
+# Linear Model
+smoy.lm.mod <- train(share ~ .,
+                     data = smoy,
+                     method = 'lm',
+                     trControl = cvControl,
+                     na.action=na.exclude)
+# MSE = 0.05345, R^2 = 0.29961
+
+# GLM
+smoy.glm.mod <- train(share ~ .,
+                      data = smoy,
+                      method = 'glmnet',
+                      trControl = cvControl,
+                      na.action=na.exclude)
+# MSE = 0.05371, R^2 = .2963, alpha = .10
+
+# Lasso
+smoy.lasso.mod <- train(share ~ .,
+                        data = smoy,
+                        method = 'lasso',
+                        trControl = cvControl,
+                        na.action=na.exclude)
+# MSE = .05349, R^2 = .2966
+
+# Ridge
+smoy.ridge.mod <- train(share ~ .,
+                        data = smoy,
+                        method = 'ridge',
+                        trControl = cvControl,
+                        na.action=na.exclude)
 # MSE = .0536845, R^2 = .29719
