@@ -141,7 +141,7 @@ dpoy.stepwise.mod <- train(share ~ .,
                           method = 'leapSeq',
                           trControl = cvControl,
                           na.action=na.exclude)
-# MSE = 0.05499, R^2 = 0.25663
+# MSE = 0.06131, R^2 = 0.09305
 
 # backward selection
 dpoy.backselect.mod <- train(share ~ .,
@@ -149,7 +149,7 @@ dpoy.backselect.mod <- train(share ~ .,
                             method = 'leapBackward',
                             trControl = cvControl,
                             na.action=na.exclude)
-# MSE = 0.05543, R^2 = 0.24827
+# MSE = 0.06131, R^2 = 0.0944
 
 # Linear Model
 dpoy.lm.mod <- train(share ~ .,
@@ -157,7 +157,7 @@ dpoy.lm.mod <- train(share ~ .,
                     method = 'lm',
                     trControl = cvControl,
                     na.action=na.exclude)
-# MSE = 0.05345, R^2 = 0.29961
+# MSE = 0.060793, R^2 = 0.11358
 
 # GLM
 dpoy.glm.mod <- train(share ~ .,
@@ -165,7 +165,7 @@ dpoy.glm.mod <- train(share ~ .,
                      method = 'glmnet',
                      trControl = cvControl,
                      na.action=na.exclude)
-# MSE = 0.05371, R^2 = .2963, alpha = .10
+# MSE = 0.060708, R^2 = .11278, alpha = .10
 
 # Lasso
 dpoy.lasso.mod <- train(share ~ .,
@@ -173,7 +173,7 @@ dpoy.lasso.mod <- train(share ~ .,
                        method = 'lasso',
                        trControl = cvControl,
                        na.action=na.exclude)
-# MSE = .05349, R^2 = .2966
+# MSE = .06085, R^2 = .11302
 
 # Ridge
 dpoy.ridge.mod <- train(share ~ .,
@@ -181,7 +181,7 @@ dpoy.ridge.mod <- train(share ~ .,
                        method = 'ridge',
                        trControl = cvControl,
                        na.action=na.exclude)
-# MSE = .0536845, R^2 = .29719
+# MSE = .06081, R^2 = .1125851
 
 # SMOY Analysis
 # Stepwise selection
@@ -190,7 +190,7 @@ smoy.stepwise.mod <- train(share ~ .,
                            method = 'leapSeq',
                            trControl = cvControl,
                            na.action=na.exclude)
-# MSE = 0.05499, R^2 = 0.25663
+# MSE = 0.050709, R^2 = 0.18612
 
 # backward selection
 smoy.backselect.mod <- train(share ~ .,
@@ -198,7 +198,7 @@ smoy.backselect.mod <- train(share ~ .,
                              method = 'leapBackward',
                              trControl = cvControl,
                              na.action=na.exclude)
-# MSE = 0.05543, R^2 = 0.24827
+# MSE = 0.051332, R^2 = 0.17585
 
 # Linear Model
 smoy.lm.mod <- train(share ~ .,
@@ -206,7 +206,7 @@ smoy.lm.mod <- train(share ~ .,
                      method = 'lm',
                      trControl = cvControl,
                      na.action=na.exclude)
-# MSE = 0.05345, R^2 = 0.29961
+# MSE = 0.050216, R^2 = 0.2110057
 
 # GLM
 smoy.glm.mod <- train(share ~ .,
@@ -214,7 +214,7 @@ smoy.glm.mod <- train(share ~ .,
                       method = 'glmnet',
                       trControl = cvControl,
                       na.action=na.exclude)
-# MSE = 0.05371, R^2 = .2963, alpha = .10
+# MSE = 0.00502579, R^2 = .21234, alpha = .10
 
 # Lasso
 smoy.lasso.mod <- train(share ~ .,
@@ -222,7 +222,7 @@ smoy.lasso.mod <- train(share ~ .,
                         method = 'lasso',
                         trControl = cvControl,
                         na.action=na.exclude)
-# MSE = .05349, R^2 = .2966
+# MSE = .05038588, R^2 = .2113958
 
 # Ridge
 smoy.ridge.mod <- train(share ~ .,
@@ -230,4 +230,4 @@ smoy.ridge.mod <- train(share ~ .,
                         method = 'ridge',
                         trControl = cvControl,
                         na.action=na.exclude)
-# MSE = .0536845, R^2 = .29719
+# MSE = .050343, R^2 = .2077896
