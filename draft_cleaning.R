@@ -6,6 +6,9 @@ library(stringr)
 
 # import csv file
 draft <- as.data.frame(read_csv('nbaDraftList.csv'))
+draft_2016 <- as.data.frame(read_csv('nbaDraftList_2016.csv'))
+
+draft <- rbind(draft, draft_2016)
 
 # Rename columns
 colnames(draft) <- c('Draft_Pos','Team','Name','College','Draft_Year')
