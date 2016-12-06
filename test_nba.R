@@ -141,7 +141,7 @@ mvp_2.lm.mod <- train(share ~ .,
                           method = 'lm',
                           trControl = cvControl,
                           na.action=na.exclude)
-# MSE = 0.1820564, R^2 = 0.5225591
+# MSE = 0.1820564, R^2 = 0.5225591h
 
 # DPOY Analysis
 # Stepwise selection
@@ -166,7 +166,7 @@ dpoy.lm.mod <- train(share ~ .,
                     method = 'lm',
                     trControl = cvControl,
                     na.action=na.exclude)
-# MSE = 0.060793, R^2 = 0.11358
+# MSE = 0.06065, R^2 = 0.11358
 
 # GLM
 dpoy.glm.mod <- train(share ~ .,
@@ -174,7 +174,7 @@ dpoy.glm.mod <- train(share ~ .,
                      method = 'glmnet',
                      trControl = cvControl,
                      na.action=na.exclude)
-# MSE = 0.060708, R^2 = .11278, alpha = .10
+# MSE = 0.060578, R^2 = .11278, alpha = .10
 
 # Lasso
 dpoy.lasso.mod <- train(share ~ .,
@@ -240,3 +240,78 @@ smoy.ridge.mod <- train(share ~ .,
                         trControl = cvControl,
                         na.action=na.exclude)
 # MSE = .050343, R^2 = .2077896
+
+# Testing with 2016 data
+
+mvp_2016 <-mvp_analysis_2016[c(-2,-3,-5,-8,-55,-56, -57)]
+dpoy_2016 <- dpoy_analysis_2016[c(-2,-3,-5,-8,-56,-55,-57)]
+smoy_2016 <- smoy_analysis_2016[c(-2,-3,-5,-8,-56,-55,-57)]
+
+mvp_2016 <- pos_fact(mvp_2016)
+dpoy_2016 <- pos_fact(dpoy_2016)
+smoy_2016 <- pos_fact(smoy_2016)
+
+mvp_2016$Pos<-as.factor(mvp_2016$Pos)
+mvp_2016$Draft_Pos<-as.numeric(mvp_2016$Draft_Pos)
+mvp_2016[is.na(mvp_2016)] <- 0
+
+dpoy_2016$Pos <- as.factor(dpoy_2016$Pos)
+dpoy_2016$Draft_Pos <- as.numeric(dpoy_2016$Draft_Pos)
+dpoy_2016[is.na(dpoy_2016)] <- 0
+
+smoy_2016$Pos <- as.factor(smoy_2016$Pos)
+smoy_2016$Draft_Pos <- as.numeric(smoy_2016$Draft_Pos)
+smoy_2016[is.na(smoy_2016)] <- 0
+
+# MVP Prediction
+mvp_pred <- predict(mvp.lm.mod, newdata = mvp_2016, type = 'raw')
+mvp_mse <- mean(sum((mvp_pred - mvp_2016$share)^2))
+
+print(tail(sort(mvp_pred),10))
+
+#MVP SUBSET
+mvp_2016_2 <- subset(mvp_2016, share > 0)
+mvp_pred_2 <- predict(mvp_2.lm.mod, newdata = mvp_2016_2, type = 'raw')
+
+print(sort(mvp_pred_2))
+mvp_2_mse <- mean(sum((mvp_pred_2 - mvp_2016_2$share)^2))
+
+# DPOY Prediction
+dpoy_pred <- predict(dpoy.glm.mod, newdata = dpoy_2016, type = 'raw')
+dpoy_mse <- mean(sum((dpoy_pred - dpoy_2016$share)^2))
+
+print(tail(sort(dpoy_pred),10))
+
+#DPOY SUBSET
+dpoy_2016_2 <- subset(dpoy_2016, share > 0)
+
+dpoy_2.glm.mod <- train(share ~ .,
+                      data = dpoy,
+                      method = 'glmnet',
+                      trControl = cvControl,
+                      na.action=na.exclude)
+
+dpoy_pred_2 <- predict(dpoy_2.glm.mod, newdata = dpoy_2016_2, type = 'raw')
+
+print(sort(dpoy_pred_2))
+dpoy_2_mse <- mean(sum((dpoy_pred_2 - dpoy_2016_2$share)^2))
+
+# smoy Prediction
+smoy_pred <- predict(smoy.glm.mod, newdata = smoy_2016, type = 'raw')
+smoy_mse <- mean(sum((smoy_pred - smoy_2016$share)^2))
+
+print(tail(sort(smoy_pred),10))
+
+#DPOY SUBSET
+smoy_2016_2 <- subset(smoy_2016, share > 0)
+
+smoy_2.glm.mod <- train(share ~ .,
+                        data = smoy,
+                        method = 'glmnet',
+                        trControl = cvControl,
+                        na.action=na.exclude)
+
+smoy_pred_2 <- predict(smoy_2.glm.mod, newdata = smoy_2016_2, type = 'raw')
+
+print(sort(smoy_pred_2))
+smoy_2_mse <- mean(sum((smoy_pred_2 - smoy_2016_2$share)^2))
