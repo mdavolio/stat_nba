@@ -8,4 +8,4 @@ The data was scraped from various pages on the site basketball-reference (http:/
 
 All-NBA Results
 After cleaning and structuring the data, the resulting table contained observations for each player, for every year in the data set. The response variable was which All-NBA team the player was selected to in that year: 1, 2, 3, or if they were not selected to a team, 4. Due to disproportionate classes (96% in class 4), downsampling and upsampling approaches were both tested with upsampling performing better with cross validation on the training data. An LDA and Multinomial Model were both tested with a mutlinomial approach having a stronger overall accuracy, but the LDA model seeming to perform better at predicting players who aren't in class 4.
-![matrix](https://github.com/mdavolio/stat_nba/blob/master/confusion_matrix.PNG)
+[matrix]: https://github.com/mdavolio/stat_nba/blob/master/confusion_matrix.PNG
